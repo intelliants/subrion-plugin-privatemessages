@@ -1,0 +1,129 @@
+
+.b-pm .tab-pane {
+	padding: 10px;
+}
+
+.b-pm__nav {
+	width: 140px;
+	float: left;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.b-pm__nav > li {
+	margin: 0;
+}
+
+.b-pm__nav > li > a {
+	display: block;
+	text-decoration: none;
+	padding: 6px 14px;
+	border-left: 2px solid transparent;
+}
+
+.b-pm__nav > li > a:hover {
+	background: #f5f5f5;
+	border-left-color: #eee;
+}
+
+.b-pm__nav > li.active > a {
+	background: #f2f2f2;
+	border-left: 2px solid #ddd;
+}
+
+.b-pm__nav__compose > a {
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.b-pm__messages {
+	overflow: hidden;
+	background: #f2f2f2;
+	padding: 20px;
+}
+
+
+
+.b-pm__messages__check {
+	float: right;
+	font-size: 12px;
+	line-height: 14px;
+	color: #999;
+	margin-bottom: 10px;
+}
+
+.b-pm__messages__check span {
+	display: inline-block;
+	margin-left: 10px;
+	border-bottom: 1px dashed #ddd;
+	cursor: pointer;
+}
+
+.b-pm__messages__check span:hover {
+	color: #777;
+	border-bottom-color: #999;
+}
+
+
+.b-pm__messages__list {
+	margin: 0;
+}
+
+.b-pm__messages__list .checkbox {
+	margin-top: 0;
+}
+
+.b-pm__messages__list__actions {
+	background: #e5e5e5;
+	padding: 10px 20px;
+	margin: 0 -20px -20px;
+}
+
+.b-pm__messages__list__actions input,
+.b-pm__messages__list__actions select {
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+.b-pm__messages__list__actions select {
+	width: 120px;
+	height: 26px;
+	line-height: 26px;
+	padding: 2px 6px;
+}
+
+
+
+.b-pm__messages__compose {
+	margin: 0;
+}
+
+.b-pm__messages__compose .control-label {
+	text-align: left;
+	width: 80px;
+}
+
+.b-pm__messages__compose .controls {
+	margin-left: 100px;
+}
+
+
+.b-pm__message {
+	margin-bottom: 20px;
+}
+.b-pm__message__reply__body {
+	display: none;
+	margin-top: 20px;
+}
+
+.b-pm__message__reply__body form {
+	margin: 0;
+	padding-bottom: 40px;
+}
+
+
+.alert-pm {
+	padding: 10px;
+	margin-bottom: 10px;
+}

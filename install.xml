@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin name="privatemessages">
+	<title>Private Messages</title>
+	<summary>This plugin adds private messaging functionality to your website.</summary>
+	<author>Intelliants LLC</author>
+	<contributor>Intelliants LLC</contributor>
+	<version>3.2.0</version>
+	<date>2014-12-11</date>
+	<compatibility>3.2</compatibility>
+
+	<permissions>
+		<object id="account_messages" action="send" access="0">Send Message</object>
+
+		<permission type="group" type_id="4" access="0">account_messages</permission>
+		<permission type="group" type_id="4" access="0">account_message_add</permission>
+		<permission type="group" type_id="4" access="0" action="send">pages-account_messages</permission>
+	</permissions>
+
+	<pages>
+		<page name="account_messages" url="profile/messages/" menus="account" nofollow="1">Private Messages</page>
+		<page name="account_message_add" url="profile/messages/?action=compose">Compose Message</page>
+	</pages>
+
+	<phrases>
+		<phrase category="common" key="from">From</phrase>
+		<phrase category="common" key="message">Message</phrase>
+		<phrase category="common" key="to">To</phrase>
+		<phrase category="common" key="pages-account_messages--send">Allow to send private messages</phrase>
+
+		<phrase category="frontend" key="add_folder">Add Folder</phrase>
+		<phrase category="frontend" key="add_to_ignore">Ignore messages from this user</phrase>
+		<phrase category="frontend" key="addressee_is_not_specified">Addressee is not specified.</phrase>
+		<phrase category="frontend" key="compose">Compose</phrase>
+		<phrase category="frontend" key="delete_forever">Delete Forever</phrase>
+		<phrase category="frontend" key="failed_to_rename_folder">Failed to rename folder.</phrase>
+		<phrase category="frontend" key="folders">Folders</phrase>
+		<phrase category="frontend" key="folder_contains_messages">This folder contains :count message(s).</phrase>
+		<phrase category="frontend" key="folder_created">Folder has been created.</phrase>
+		<phrase category="frontend" key="folder_exist">Mail folder already exists.</phrase>
+		<phrase category="frontend" key="folder_new_name">Input new name for your folder</phrase>
+		<phrase category="frontend" key="folder_renamed">Folder has been renamed.</phrase>
+		<phrase category="frontend" key="folder_invalid_name">Folder name should contain letters and digits only.</phrase>
+		<phrase category="frontend" key="folder_name">Folder Name</phrase>
+		<phrase category="frontend" key="list_of_ignored_users">Here are the list of users you decided to block messages from.</phrase>
+		<phrase category="frontend" key="mail_sent_to"><![CDATA[Private message has been sent to %NAME%.]]></phrase>
+		<phrase category="frontend" key="marked_read">Marked as read</phrase>
+		<phrase category="frontend" key="marked_unread">Marked as unread</phrase>
+		<phrase category="frontend" key="member_is_not_registered">Member ":name" is not registered.</phrase>
+		<phrase category="frontend" key="messages">Messages</phrase>
+		<phrase category="frontend" key="message_is_empty">Message text is empty.</phrase>
+		<phrase category="frontend" key="message_moved">Message has been moved.</phrase>
+		<phrase category="frontend" key="message_moved_to"><![CDATA[Private message has been moved to {1}.]]></phrase>
+		<phrase category="frontend" key="no_unread_messages">No unread messages.</phrase>
+		<phrase category="frontend" key="no_messages">There are no messages in this folder.</phrase>
+		<phrase category="frontend" key="pm_deleted">Messages folder has been removed.</phrase>
+		<phrase category="frontend" key="pm_folder_deleted">Folder has been deleted.</phrase>
+		<phrase category="frontend" key="pm_deleted_from_trash">Message has been removed.</phrase>
+		<phrase category="frontend" key="rename">Rename</phrase>
+		<phrase category="frontend" key="reply">Reply</phrase>
+		<phrase category="frontend" key="send_pm">Send PM</phrase>
+		<phrase category="frontend" key="tried_to_send_to_yourself">You tried to send the message to yourself.</phrase>
+		<phrase category="frontend" key="unread">Unread</phrase>
+        <phrase category="frontend" key="read">Read</phrase>
+        <phrase category="frontend" key="none">None</phrase>
+        <phrase category="frontend" key="all">All</phrase>
+        <phrase category="frontend" key="subject_is_empty">Subject is empty. Are you sure you want to leave it blank?</phrase>
+		<phrase category="frontend" key="user_excluded_from_ignore">User excluded from ignore-list.</phrase>
+		<phrase category="frontend" key="user_messages_blocked">Messages from this user are currently blocked by you.</phrase>
+		<phrase category="frontend" key="user_messages_now_ignored">User message will now be blocked.</phrase>
+		<phrase category="frontend" key="user_blocked_messages">The addressee blocked messages from you.</phrase>
+		<phrase category="frontend" key="want_del_folder">Are you sure you want to delete this folder?</phrase>
+		<phrase category="frontend" key="you_have_unread_messages"><![CDATA[You have %1 unread PM.]]></phrase>
+		<phrase category="frontend" key="you_sure_want_to_exclude_from_ignore">Are you sure you want to exclude this user from ignore-list?</phrase>
+	</phrases>
+
+	<hooks>
+		<hook name="phpCoreDisplayBeforeShowBody" page_type="front">
+			<![CDATA[
+$iaMailbox = $iaCore->factoryPlugin('privatemessages', iaCore::FRONT, 'mailbox');
+if (iaUsers::hasIdentity() && $num = $iaMailbox->getNumInboxUnreadMessages(iaUsers::getIdentity()->id))
+{
+	iaLanguage::set('you_have_unread_messages', str_replace('%1', $num, iaLanguage::get('you_have_unread_messages')));
+	$iaView->iaSmarty->assignGlobal('new_messages', true);
+}
+			]]>
+		</hook>
+
+		<hook name="phpViewListingBeforeStart" page_type="front" pages="view_member">
+			<![CDATA[
+if (iaUsers::hasIdentity() && iaUsers::getIdentity()->id != $listing)
+{
+	$iaCore->factory('item')->setItemTools(array(
+		'id' => 'send-pm',
+		'title' => iaLanguage::get('send_pm'),
+		'attributes' => array(
+			'href' => IA_URL . 'profile/messages/?action=compose&id=' . $listing,
+		)
+	));
+}
+			]]>
+		</hook>
+
+		<hook name="smartyFrontInsideAccountBox" page_type="front" type="smarty">
+			<![CDATA[
+{if isset($new_messages)}
+	<div class="alert alert-info" style="padding: 10px; margin-bottom: 10px;">
+		<a rel="nofollow" href="{$smarty.const.IA_URL}profile/messages/"><i class="icon-envelope"></i> {lang key="you_have_unread_messages"}</a>
+	</div>
+{/if}
+			]]>
+		</hook>
+	</hooks>
+
+	<install>
+		<sql>
+			<![CDATA[
+CREATE TABLE `{prefix}messages` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `subject` varchar(50) NOT NULL,
+  `body` mediumtext NOT NULL,
+  `member_id` mediumint(8) unsigned NOT NULL,
+  `from_member_id` mediumint(8) unsigned NOT NULL,
+  `to_member_id` mediumint(8) unsigned NOT NULL,
+  `folder_id` mediumint(7) unsigned NOT NULL,
+  `date_sent` datetime NOT NULL,
+  `read` tinyint(1) unsigned NOT NULL,
+  `new` tinyint(1) unsigned NOT NULL default 1,
+  PRIMARY KEY  (`id`)
+) {mysql_version};
+			]]>
+		</sql>
+
+		<sql>
+			<![CDATA[
+CREATE TABLE `{prefix}messages_folders` (
+  `id` mediumint(7) unsigned NOT NULL auto_increment,
+  `member_id` mediumint(8) unsigned NOT NULL,
+  `title` char(50) NOT NULL,
+  `common` tinyint(1) unsigned NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `MEMBER` (`member_id`)
+) {mysql_version};
+			]]>
+		</sql>
+
+		<sql>
+			<![CDATA[
+INSERT INTO `{prefix}messages_folders` (`id`, `title`, `common`) VALUES (1, 'Inbox', 1), (2, 'Sent Mail', 1), (3, 'Trash', 1);
+			]]>
+		</sql>
+
+		<sql>
+			<![CDATA[
+CREATE TABLE `{prefix}messages_ignore_list` (
+  `member_id` mediumint(8) unsigned NOT NULL,
+  `blocked_member_id` mediumint(8) unsigned NOT NULL,
+  UNIQUE KEY `UNIQUE` (`member_id`, `blocked_member_id`),
+  KEY `MEMBER` (`member_id`)
+) {mysql_version};
+			]]>
+		</sql>
+	</install>
+
+	<uninstall>
+		<sql>
+			<![CDATA[
+DROP TABLE IF EXISTS `{prefix}messages`, `{prefix}messages_folders`, `{prefix}messages_ignore_list`;
+			]]>
+		</sql>
+	</uninstall>
+</plugin>
