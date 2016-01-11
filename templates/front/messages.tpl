@@ -41,7 +41,7 @@
 								<td style="cursor:pointer;" onclick="window.location.href='profile/messages/?folder={$active_folder}&amp;mid={$value.id}'">{$value.to_username}</td>
 							{/if}
 							<td class="message" style="cursor:pointer;" onclick="window.location.href='profile/messages/?folder={$active_folder}&amp;mid={$value.id}'">
-								{if $value.new}<i class="icon-envelope"></i>&nbsp;{/if}
+								{if $value.new}<span class="fa fa-envelope"></span>&nbsp;{/if}
 								{$value.subject}
 							</td>
 							<td style="width: 20%; font-size: 0.75em; white-space: nowrap;cursor:pointer;" onclick="window.location.href='profile/messages/?folder={$active_folder}&amp;mid={$value.id}'">{$value.date_sent|date_format:"%b %e, %Y %l:%m %p"}</td>
@@ -62,19 +62,19 @@
 			<input type="hidden" name="action_param" id="action_param" value="0">
 
 			{if 3 == $active_folder}
-				<input type="button" name="delete_forever" value="{lang key='delete_forever'}" class="btn btn-danger btn-small" onclick="delete_messages_forever(); return true;">
+				<input type="button" name="delete_forever" value="{lang key='delete_forever'}" class="btn btn-danger" onclick="delete_messages_forever(); return true;">
 			{else}
-				<input type="button" name="delete" value="{lang key='delete'}" class="btn btn-danger btn-small" onclick="delete_messages(); return true;">
+				<input type="button" name="delete" value="{lang key='delete'}" class="btn btn-danger" onclick="delete_messages(); return true;">
 			{/if}
 
 			{if 2 != $active_folder}
-				<select onchange="mark_change(this); return true;">
+				<select onchange="mark_change(this); return true;" class="form-control">
 					<option>{lang key='mark_as'}</option>
 					<option value="mark_as_read">{lang key='read'}</option>
 					<option value="mark_as_unread">{lang key='unread'}</option>
 				</select>
 
-				<select onchange="move_to_change(this); return true;">
+				<select onchange="move_to_change(this); return true;" class="form-control">
 					<option value="0">{lang key='move_to'}</option>
 					{foreach from=$folders item=folder}
 						<option value="{$folder.id}">{$folder.title}</option>

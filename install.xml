@@ -4,9 +4,9 @@
 	<summary>This plugin adds private messaging functionality to your website.</summary>
 	<author>Intelliants LLC</author>
 	<contributor>Intelliants LLC</contributor>
-	<version>3.2.0</version>
-	<date>2014-12-11</date>
-	<compatibility>3.2</compatibility>
+	<version>4.0.0</version>
+	<date>2016-01-11</date>
+	<compatibility>4.0</compatibility>
 
 	<permissions>
 		<object id="account_messages" action="send" access="0">Send Message</object>
@@ -60,10 +60,10 @@
 		<phrase category="frontend" key="send_pm">Send PM</phrase>
 		<phrase category="frontend" key="tried_to_send_to_yourself">You tried to send the message to yourself.</phrase>
 		<phrase category="frontend" key="unread">Unread</phrase>
-        <phrase category="frontend" key="read">Read</phrase>
-        <phrase category="frontend" key="none">None</phrase>
-        <phrase category="frontend" key="all">All</phrase>
-        <phrase category="frontend" key="subject_is_empty">Subject is empty. Are you sure you want to leave it blank?</phrase>
+		<phrase category="frontend" key="read">Read</phrase>
+		<phrase category="frontend" key="none">None</phrase>
+		<phrase category="frontend" key="all">All</phrase>
+		<phrase category="frontend" key="subject_is_empty">Subject is empty. Are you sure you want to leave it blank?</phrase>
 		<phrase category="frontend" key="user_excluded_from_ignore">User excluded from ignore-list.</phrase>
 		<phrase category="frontend" key="user_messages_blocked">Messages from this user are currently blocked by you.</phrase>
 		<phrase category="frontend" key="user_messages_now_ignored">User message will now be blocked.</phrase>

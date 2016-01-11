@@ -1,7 +1,7 @@
 <div class="tabbable">
 	<ul class="nav nav-tabs">
-		<li class="active"><a data-toggle="tab" href="#tab-messages"><span><i class="icon-envelope"></i> {lang key='messages'}</span></a></li>
-		<li><a data-toggle="tab" href="#tab-folders"><span><i class="icon-folder-close"></i> {lang key='folders'}</span></a></li>
+		<li class="active"><a data-toggle="tab" href="#tab-messages"><span><span class="fa fa-envelope"></span> {lang key='messages'}</span></a></li>
+		<li><a data-toggle="tab" href="#tab-folders"><span><span class="fa fa-folder"></span> {lang key='folders'}</span></a></li>
 	</ul>
 
 	<div class="tab-content b-pm">
@@ -20,24 +20,24 @@
 				{if isset($smarty.get.action) && 'compose' == $smarty.get.action}
 					<form method="post" class="b-pm__messages__compose form-horizontal" name="compose" action="{$smarty.const.IA_URL}profile/messages/?action=compose">
 						{preventCsrf}
-						<div class="control-group">
-							<label for="to" class="control-label">{lang key='to'}:</label>
-							<div class="controls">
-								<input type="text" autocomplete="off" name="username" id="to" size="20" value="{$recip.username}" placeholder="{lang key='username'}">
+						<div class="form-group">
+							<label for="to" class="control-label col-md-3">{lang key='to'}:</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" autocomplete="off" name="username" id="to" size="20" value="{$recip.username}" placeholder="{lang key='username'}">
 							</div>
 						</div>
 
-						<div class="control-group">
-							<label for="subject" class="control-label">{lang key='subject'}:</label>
-							<div class="controls">
-								<input type="text" class="text" name="subject" id="subject" size="40" value="{if isset($smarty.post.subject)}{$smarty.post.subject}{/if}" maxlength="50" placeholder="{lang key='subject'}">
+						<div class="form-group">
+							<label for="subject" class="control-label col-md-3">{lang key='subject'}:</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" name="subject" id="subject" size="40" value="{if isset($smarty.post.subject)}{$smarty.post.subject}{/if}" maxlength="50" placeholder="{lang key='subject'}">
 							</div>
 						</div>
 
-						<div class="control-group">
-							<label for="message" class="control-label">{lang key='message'}:</label>
-							<div class="controls">
-								<textarea name="body" id="message" rows="10" class="input-block-level">{if isset($smarty.post.body)}{$smarty.post.body}{/if}</textarea>
+						<div class="form-group">
+							<label for="message" class="control-label col-md-3">{lang key='message'}:</label>
+							<div class="col-md-9">
+								<textarea name="body" id="message" rows="10" class="input-block-level form-control">{if isset($smarty.post.body)}{$smarty.post.body}{/if}</textarea>
 							</div>
 						</div>
 
@@ -62,25 +62,28 @@
 					{if isset($smarty.get.mid) && ($smarty.get.folder != 2)}
 						<div class="b-pm__message__reply">
 							<div class="b-pm__messages__list__actions">
-								<button onclick="reply_click(); return true;" class="btn btn-primary">{lang key='reply'}</button>
+								<button onclick="reply_click(); return true;" id="reply_button" class="btn btn-primary">{lang key='reply'}</button>
 
 								<div class="b-pm__message__reply__body" id="reply_content">
-									<form method="post" action="{$smarty.const.IA_URL}profile/messages/?action=compose">
+									<form method="post" action="{$smarty.const.IA_URL}profile/messages/?action=compose" class="form-horizontal">
 										{preventCsrf}
 										<div id="edit_subject_link" style="margin-bottom: 10px;">
 											<a href="javascript:void(0)" onclick="editSubjectClick(); return false;">{lang key='edit_subject'}</a>
 										</div>
-										<div style="display: none; margin-bottom: 10px;" id="edit_subject">
-											{lang key='subject'}: <input type="text" name="subject" size="40" maxlength="50" style="float:none;" id="subject">
+										<div style="display: none; margin-bottom: 10px;" id="edit_subject" class="form-group">
+											<label for="subject" class="col-md-1 control-label">{lang key='subject'}:</label>
+											<div class="col-md-7">
+												<input type="text" name="subject" class="form-control" size="40" maxlength="50" style="float:none;" id="subject">
+											</div>
 										</div>
 										<input type="hidden" value="Re: {$pm_message.subject}" id="subject_copy">
-										<textarea rows="10" class="input-block-level" cols="50" name="body" id="reply_message"></textarea>
+										<textarea class="input-block-level form-control" rows="10" cols="50" name="body" id="reply_message"></textarea>
 										<div style="display: none;">
 											<textarea id="reply_message_copy" cols="15" rows="5">{$pm_message.body}</textarea>
 										</div>
-										<div>
+										<div style="margin-top:15px">
 											<input type="hidden" name="username" value="{$pm_message.from_username}">
-											<input type="submit" name="send" value="{lang key='send'}" class="btn btn-primary">
+											<input type="submit" name="send" value="{lang key='send'}" class="btn btn-primary" id="reply">
 											<input type="button" value="{lang key='cancel'}" class="btn btn-danger" onclick="discard_reply(); return true;">
 										</div>
 									</form>
@@ -126,8 +129,8 @@
 										<td class="text-right">
 											{if !$value.common}
 											<span class="folder-actions">
-												<button onclick="rename_folder('{$value.id}', '{$value.title}'); return true;" class="btn btn-mini btn-info">{lang key='rename'}</button>
-												<button onclick="rmdir('{$value.id}', '{$value.messages}'); return true;" class="btn btn-mini btn-danger">{lang key='delete'}</button>
+												<button onclick="rename_folder('{$value.id}', '{$value.title}'); return true;" class="btn btn-xs btn-info">{lang key='rename'}</button>
+												<button onclick="rmdir('{$value.id}', '{$value.messages}'); return true;" class="btn btn-xs btn-danger">{lang key='delete'}</button>
 											</span>
 											{/if}
 										</td>
@@ -139,9 +142,9 @@
 						</tbody>
 					</table>
 				
-					<div class="b-pm__messages__list__actions clearfix">
-						<input type="text" class="span2" id="js-folder-name" size="15" maxlength="15" placeholder="{lang key='add_folder'}">
-						<button onclick="mkdir()" class="btn btn-success"><i class="icon-plus-sign"></i></button>
+					<div class="b-pm__messages__list__actions clearfix form-inline">
+						<input type="text" class="col-md-2 form-control" id="js-folder-name" size="15" maxlength="15" placeholder="{lang key='add_folder'}">
+						<button onclick="mkdir()" class="btn btn-success"><span class="fa fa-plus"></span></button>
 					</div>
 				</div>
 			</div>

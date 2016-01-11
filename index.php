@@ -98,6 +98,7 @@ if (iaView::REQUEST_HTML == $iaView->getRequestType())
 
 	switch ($action)
 	{
+/* seems like redundant
 		case 'email':
 			if (isset($_POST['addressee']) && is_numeric($_POST['addressee']))
 			{
@@ -150,7 +151,7 @@ if (iaView::REQUEST_HTML == $iaView->getRequestType())
 			}
 			echo 'Invalid request';
 			exit;
-
+*/
 		case 'compose':
 			$recip_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 			$recip = $iaDb->row("`id`, `fullname`, `username`", "`id` = '$recip_id'", iaUsers::getTable());
