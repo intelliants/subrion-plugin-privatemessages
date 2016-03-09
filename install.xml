@@ -5,7 +5,7 @@
 	<author>Intelliants LLC</author>
 	<contributor>Intelliants LLC</contributor>
 	<version>4.0.0</version>
-	<date>2016-01-11</date>
+	<date>2016-03-09</date>
 	<compatibility>4.0</compatibility>
 
 	<permissions>
@@ -103,9 +103,10 @@ if (iaUsers::hasIdentity() && iaUsers::getIdentity()->id != $listing)
 		<hook name="smartyFrontInsideAccountBox" page_type="front" type="smarty">
 			<![CDATA[
 {if isset($new_messages)}
-	<div class="alert alert-info" style="padding: 10px; margin-bottom: 10px;">
-		<a rel="nofollow" href="{$smarty.const.IA_URL}profile/messages/"><i class="icon-envelope"></i> {lang key="you_have_unread_messages"}</a>
+	<div class="alert new-message-alert" style="padding: 10px; margin-bottom: 10px;">
+		<a rel="nofollow" href="{$smarty.const.IA_URL}profile/messages/"><span class="fa fa-envelope-o"></span> {lang key="you_have_unread_messages"}</a>
 	</div>
+	{ia_add_media files="css:_IA_URL_plugins/privatemessages/templates/front/css/style"}
 {/if}
 			]]>
 		</hook>

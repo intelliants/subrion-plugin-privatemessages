@@ -25,7 +25,7 @@ function folder_click(id)
 {
 	if (show_message && id == current_folder)
 	{
-		document.getElementById('message').style.display = 'none';	
+		document.getElementById('message').style.display = 'none';
 		document.getElementById('messages').style.display = 'block';
 		show_message = false;
 	}
@@ -316,8 +316,8 @@ function mkdir()
 </td>\
 <td class="text-right">\
 <span class="folder-actions">\
-<button class="btn btn-mini btn-info" onclick="rename_folder(\'' + data.folder + '\', \'' + name + '\'); return false;">' + _f('rename') + '</button> \
-<button class="btn btn-mini btn-danger" onclick="rmdir(\'' + data.folder + '\', \'0\'); return false;">' + _f('delete') + '</button>\
+<button class="btn btn-xs btn-info" onclick="rename_folder(\'' + data.folder + '\', \'' + name + '\'); return false;">' + _f('rename') + '</button> \
+<button class="btn btn-xs btn-danger" onclick="rmdir(\'' + data.folder + '\', \'0\'); return false;">' + _f('delete') + '</button>\
 </span>\
 					</td>\
 					<td class="text-right">0</td>\

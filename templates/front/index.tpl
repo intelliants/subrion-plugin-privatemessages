@@ -1,7 +1,7 @@
-<div class="tabbable">
+<div class="tabbable p-messages">
 	<ul class="nav nav-tabs">
-		<li class="active"><a data-toggle="tab" href="#tab-messages"><span><span class="fa fa-envelope"></span> {lang key='messages'}</span></a></li>
-		<li><a data-toggle="tab" href="#tab-folders"><span><span class="fa fa-folder"></span> {lang key='folders'}</span></a></li>
+		<li class="active"><a data-toggle="tab" href="#tab-messages"><span><span class="fa fa-envelope-o"></span> {lang key='messages'}</span></a></li>
+		<li><a data-toggle="tab" href="#tab-folders"><span><span class="fa fa-folder-o"></span> {lang key='folders'}</span></a></li>
 	</ul>
 
 	<div class="tab-content b-pm">
@@ -100,7 +100,7 @@
 		<div id="tab-folders" class="tab-pane">
 			<div class="b-pm__messages">
 				<div class="b-pm__messages__list">
-					<table class="table table-condensed table-striped">
+					<table class="table table-condensed">
 						<thead>
 							<tr>
 								<th width="50%">{lang key='name'}</th>
@@ -109,7 +109,7 @@
 								<th>{lang key='unread'}</th>
 							</tr>
 						</thead>
-				
+
 						<tfoot>
 							<tr>
 								<td>{lang key='total'}</td>
@@ -118,7 +118,7 @@
 								<td class="text-right">{$num_unread}</td>
 							</tr>
 						</tfoot>
-				
+
 						<tbody>
 							{if $folders}
 								{foreach from=$folders item=value key=key}
@@ -141,7 +141,7 @@
 							{/if}
 						</tbody>
 					</table>
-				
+
 					<div class="b-pm__messages__list__actions clearfix form-inline">
 						<input type="text" class="col-md-2 form-control" id="js-folder-name" size="15" maxlength="15" placeholder="{lang key='add_folder'}">
 						<button onclick="mkdir()" class="btn btn-success"><span class="fa fa-plus"></span></button>

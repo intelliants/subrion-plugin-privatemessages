@@ -9,7 +9,7 @@
 {if isset($pm_messages)}
 	<form method="post" id="messages_form" action="{$smarty.const.IA_URL}profile/messages/?folder={$active_folder}" class="b-pm__messages__list">
 		{preventCsrf}
-		<table class="table table-condensed table-striped">
+		<table class="table table-condensed">
 			<tr>
 				<th style="width: 20px;">
 					<input type="checkbox" onclick="checkAll(document.getElementById('messages_form'), this.checked); return true;" class="checkbox">
