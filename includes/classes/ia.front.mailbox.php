@@ -23,6 +23,7 @@
  * @link https://subrion.org/
  *
  ******************************************************************************/
+
 class iaMailbox extends abstractCore
 {
     const ITEMS_PER_PAGE = 10;
@@ -70,23 +71,22 @@ class iaMailbox extends abstractCore
         return (bool)$this->iaDb->getOne($sql);
     }
 
-    public function getMessage($messageId)
+    public function getMessageById($messageId)
     {
-        $sql =
-            'SELECT t1.*, ' .
-            't2.`username` `from_username`, t2.`fullname` `from_name`, ' .
-            't3.`username` `to_username`, t3.`fullname` `to_name`, ' .
-            'IF(t4.`member_id` IS NULL, 0, 1) `addressee_ignored` ' .
-            'FROM `:prefix:table_messages` t1 ' .
-            'LEFT JOIN `:prefix:table_users` t2 ' .
-            'ON t1.`from_member_id` = t2.`id` ' .
-            'LEFT JOIN `:prefix:table_users` t3 ' .
-            'ON t1.`to_member_id` = t3.`id` ' .
-            'LEFT JOIN `:prefix:table_ignore` t4 ' .
-            'ON (t1.`from_member_id` = t4.`blocked_member_id` AND t4.`member_id` = :user) ' .
-            'WHERE t1.`id` = :message ' .
-            'LIMIT 1';
-
+        $sql = <<<SQL
+SELECT t1.*, t2.`username` `from_username`, t2.`fullname` `from_name`, 
+  t3.`username` `to_username`, t3.`fullname` `to_name`, 
+  IF(t4.`member_id` IS NULL, 0, 1) `addressee_ignored` 
+  FROM `:prefix:table_messages` t1 
+LEFT JOIN `:prefix:table_users` t2 
+  ON t1.`from_member_id` = t2.`id` 
+LEFT JOIN `:prefix:table_users` t3 
+  ON t1.`to_member_id` = t3.`id` 
+LEFT JOIN `:prefix:table_ignore` t4 
+  ON (t1.`from_member_id` = t4.`blocked_member_id` AND t4.`member_id` = :user) 
+WHERE t1.`id` = :message 
+LIMIT 1
+SQL;
         $sql = iaDb::printf($sql, array(
             'prefix' => $this->iaDb->prefix,
             'table_messages' => self::getTable(),

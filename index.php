@@ -295,7 +295,7 @@ if (iaView::REQUEST_HTML == $iaView->getRequestType()) {
         if ($iaMailbox->isMessageOwner(iaUsers::getIdentity()->id, $mid)) { // read message
             $iaMailbox->markMessagesAsRead(array($mid), iaUsers::getIdentity()->id);
 
-            $iaView->assign('pm_message', $iaMailbox->getMessage($mid));
+            $iaView->assign('pm_message', $iaMailbox->getMessageById($mid));
             $iaView->assign('show_message', true);
         }
     } else {
