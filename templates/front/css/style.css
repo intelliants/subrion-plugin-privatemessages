@@ -122,3 +122,8 @@
 	margin-right: -5px;
 	border: 1px solid rgba(255,255,255,0.6);
 }
+
+.message-btn-author {
+	margin: 10px;
+	padding: 10px;
+}
