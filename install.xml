@@ -80,6 +80,12 @@
     <hooks>
         <hook name="smartyViewListingAuthorBlock" type="smarty" filename="hook.author-block"><![CDATA[]]></hook>
 
+        <hook name="smartyViewListingBeforeFooter" page_type="front" type="smarty">
+            <![CDATA[
+{ia_print_css files='_IA_URL_modules/privatemessages/templates/front/css/style'}
+            ]]>
+        </hook>
+
         <hook name="phpCoreDisplayBeforeShowBody" page_type="front">
             <![CDATA[
 $iaMailbox = $iaCore->factoryPlugin('privatemessages', iaCore::FRONT, 'mailbox');

@@ -127,3 +127,7 @@
 	margin: 10px;
 	padding: 10px;
 }
+
+.fa-send-pm:before {
+	content: "\f14b";
+}
