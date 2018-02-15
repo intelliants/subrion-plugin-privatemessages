@@ -120,25 +120,23 @@
                         </tfoot>
 
                         <tbody>
-                            {if $folders}
-                                {foreach $folders as $value}
-                                    <tr id="folder_{$value.id}">
-                                        <td>
-                                            <a href="{$smarty.const.IA_URL}profile/messages/?folder={$value.id}">{if $value.common}{lang key=$value.title}{else}{$value.title}{/if}</a>
-                                        </td>
-                                        <td class="text-right">
-                                            {if !$value.common}
+                            {foreach $folders as $value}
+                                <tr id="folder_{$value.id}">
+                                    <td>
+                                        <a href="{$smarty.const.IA_URL}profile/messages/?folder={$value.id}">{if $value.common}{lang key=$value.title}{else}{$value.title}{/if}</a>
+                                    </td>
+                                    <td class="text-right">
+                                        {if !$value.common}
                                             <span class="folder-actions">
                                                 <button onclick="rename_folder('{$value.id}', '{$value.title}'); return true;" class="btn btn-xs btn-info">{lang key='rename'}</button>
                                                 <button onclick="rmdir('{$value.id}', '{$value.messages}'); return true;" class="btn btn-xs btn-danger">{lang key='delete'}</button>
                                             </span>
-                                            {/if}
-                                        </td>
-                                        <td class="text-right">{$value.messages}</td>
-                                        <td class="text-right">{if $value.unread_messages}<strong>{$value.unread_messages}</strong>{else}{$value.unread_messages}{/if}</td>
-                                    </tr>
-                                {/foreach}
-                            {/if}
+                                        {/if}
+                                    </td>
+                                    <td class="text-right">{$value.messages}</td>
+                                    <td class="text-right">{if $value.unread_messages}<strong>{$value.unread_messages}</strong>{else}{$value.unread_messages}{/if}</td>
+                                </tr>
+                            {/foreach}
                         </tbody>
                     </table>
 
