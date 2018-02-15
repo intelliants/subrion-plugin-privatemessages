@@ -9,9 +9,9 @@
             <ul class="b-pm__nav">
                 <li class="b-pm__nav__compose{if isset($smarty.get.action)} active{/if}"><a href="{$smarty.const.IA_URL}profile/messages/?action=compose">{lang key='compose'}</a></li>
 
-                {foreach from=$folders item=value key=key}
+                {foreach $folders as $value}
                     <li class="{if $value.unread_messages}b-pm__nav__unread{/if}{if $active_folder == $value.id} active{/if}">
-                        <a href="#" onclick="folder_click('{$value.id}'); return false;">{if $value.unread_messages}{$value.title} ({$value.unread_messages}){else}{$value.title}{/if}</a>
+                        <a href="#" onclick="folder_click('{$value.id}'); return false;">{if $value.unread_messages}{if $value.common}{lang key=$value.title}{else}{$value.title}{/if} ({$value.unread_messages}){else}{if $value.common}{lang key=$value.title}{else}{$value.title}{/if}{/if}</a>
                     </li>
                 {/foreach}
             </ul>
@@ -121,10 +121,10 @@
 
                         <tbody>
                             {if $folders}
-                                {foreach from=$folders item=value key=key}
+                                {foreach $folders as $value}
                                     <tr id="folder_{$value.id}">
                                         <td>
-                                            <a href="{$smarty.const.IA_URL}profile/messages/?folder={$value.id}">{$value.title}</a>
+                                            <a href="{$smarty.const.IA_URL}profile/messages/?folder={$value.id}">{if $value.common}{lang key=$value.title}{else}{$value.title}{/if}</a>
                                         </td>
                                         <td class="text-right">
                                             {if !$value.common}

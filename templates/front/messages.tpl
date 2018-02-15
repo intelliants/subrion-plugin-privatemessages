@@ -24,7 +24,7 @@
                 <th style="width: 15%;">{lang key='date'}</th>
             </tr>
             {if $pm_messages}
-                {foreach from=$pm_messages item=value key=key}
+                {foreach $pm_messages as $value}
                     {if is_array($value) && count($value) > 0}
                         <tr class="message{if $value.new} unread{/if}">
                             <td style="width:20px">
@@ -76,8 +76,8 @@
 
                 <select onchange="move_to_change(this); return true;" class="form-control">
                     <option value="0">{lang key='move_to'}</option>
-                    {foreach from=$folders item=folder}
-                        <option value="{$folder.id}">{$folder.title}</option>
+                    {foreach $folders as $folder}
+                        <option value="{$folder.id}">{if $folder.common}{lang key=$folder.title}{else}{$folder.title}{/if}</option>
                     {/foreach}
                     {*<option value="-1">[ {lang key='add_folder'} ]</option>*}
                 </select>
