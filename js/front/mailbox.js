@@ -356,6 +356,7 @@ $(function ()
                             data: {q: query},
                             success: function (response)
                             {
+                                $('.typeahead.dropdown-menu').css({'opacity':'1', 'visibility':'visible'});
                                 return process(response);
                             }
                         });
