@@ -32,9 +32,9 @@
                             </td>
                             <td style="width:20%; cursor:pointer;" onclick="window.location.href='profile/messages/?folder={$active_folder}&amp;mid={$value.id}'">
                                 {if $active_folder == 2}
-                                    {ia_url type='link' item='members' data=['username' => $value.to_username] text=$value.to_fullname}
+                                    {ia_url type='link' item='member' data=['username' => $value.to_username] text=$value.to_fullname}
                                 {else}
-                                    {ia_url type='link' item='members' data=['username' => $value.from_username] text=$value.from_fullname}
+                                    {ia_url type='link' item='member' data=['username' => $value.from_username] text=$value.from_fullname}
                                 {/if}
                             </td>
                             {if ($active_folder != 1) AND ($active_folder != 2)}

@@ -78,7 +78,7 @@
     </phrases>
 
     <hooks>
-        <hook name="smartyViewListingAuthorBlock" type="smarty" filename="hook.author-block"><![CDATA[]]></hook>
+        <hook name="smartyViewListingAuthorBlock" type="smarty" filename="hook.author-block.tpl"><![CDATA[]]></hook>
 
         <hook name="smartyViewListingBeforeFooter" page_type="front" type="smarty">
             <![CDATA[
@@ -88,7 +88,7 @@
 
         <hook name="phpCoreDisplayBeforeShowBody" page_type="front">
             <![CDATA[
-$iaMailbox = $iaCore->factoryPlugin('privatemessages', iaCore::FRONT, 'mailbox');
+$iaMailbox = $iaCore->factoryModule('mailbox', 'privatemessages', iaCore::FRONT);
 if (iaUsers::hasIdentity() && $num = $iaMailbox->getNumInboxUnreadMessages(iaUsers::getIdentity()->id))
 {
     iaLanguage::set('you_have_unread_messages', str_replace('%1', $num, iaLanguage::get('you_have_unread_messages')));

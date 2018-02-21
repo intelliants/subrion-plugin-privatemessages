@@ -50,7 +50,7 @@
                         <div class="b-pm__message" id="message">
                             <div class="b-pm__message__header">
                                 {if $active_folder == 2}{lang key='to'}: {else}{lang key='from'}: {/if}
-                                <b>{if $active_folder == 2}{$pm_message.to_name}{else}{ia_url type='link' item='members' data=['username' => $pm_message.from_username] text=$pm_message.from_name}{/if}</b>
+                                <b>{if $active_folder == 2}{$pm_message.to_name}{else}{ia_url type='link' item='member' data=['username' => $pm_message.from_username] text=$pm_message.from_name}{/if}</b>
                             </div>
                             <div class="b-pm__message__body">
                                 <h4>{$pm_message.subject}</h4>

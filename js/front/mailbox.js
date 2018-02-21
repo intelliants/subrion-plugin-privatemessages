@@ -307,7 +307,7 @@ function rename_folder(id, old_name)
     var new_name = prompt(_t('folder_new_name'), old_name);
 
     if (null != new_name && new_name.length > 0) {
-        $.get(intelli.config.ia_url + "profile/messages/read.json", {action: "rename", folder_id: id, name: new_name},
+        $.get(intelli.config.url + "profile/messages/read.json", {action: "rename", folder_id: id, name: new_name},
             function (data)
             {
                 if ('boolean' == typeof data.error && !data.error) {
@@ -350,7 +350,7 @@ $(function ()
                 {
                     return $.ajax(
                         {
-                            url: intelli.config.ia_url + 'profile/messages.json',
+                            url: intelli.config.url + 'profile/messages.json',
                             type: 'get',
                             dataType: 'json',
                             data: {q: query},

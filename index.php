@@ -24,7 +24,7 @@
  *
  ******************************************************************************/
 
-$iaMailbox = $iaCore->factoryPlugin(IA_CURRENT_MODULE, iaCore::FRONT, 'mailbox');
+$iaMailbox = $iaCore->factoryModule('mailbox', 'privatemessages');
 $iaUtil = $iaCore->factory(iaCore::CORE, 'util');
 
 if (iaView::REQUEST_JSON == $iaView->getRequestType()) {
