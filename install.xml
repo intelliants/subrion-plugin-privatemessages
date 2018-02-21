@@ -77,6 +77,20 @@
         <phrase category="frontend" key="pm_folder_trash">Trash</phrase>
     </phrases>
 
+    <emails>
+        <email description="Private Messages" divider="1"><![CDATA[]]></email>
+
+        <email name="pm_notification"
+           description="New private message"
+           variables="pm_subject|Message subject,sender|Sender name,senderUrl|Sender URL,siteUrl|URL of the site,siteName|Name of the site"
+           subject="New private message">
+        <![CDATA[
+<p>Greetings,</p>
+<p>You have a new private message with a subject "{$pm_subject}" at <a href="{$siteUrl}">{$siteName}</a> from <a href="{$senderUrl}">{$sender}</a></p>
+            ]]>
+        </email>
+    </emails>
+
     <hooks>
         <hook name="smartyViewListingAuthorBlock" type="smarty" filename="hook.author-block.tpl"><![CDATA[]]></hook>
 

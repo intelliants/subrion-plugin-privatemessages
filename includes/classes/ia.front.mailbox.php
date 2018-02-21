@@ -415,4 +415,26 @@ SQL;
             self::$_ignoreTable
         );
     }
+
+    public function sendMail($params, $users_info)
+    {
+        $sender_url = IA_URL . 'member/' . $users_info['username'] . '.html';
+
+        $iaMailer = $this->iaCore->factory('mailer');
+
+        if (!$iaMailer->loadTemplate('pm_notification')) {
+            return false;
+        }
+
+        $iaMailer->addAddress($users_info['recipient_email']);
+        $iaMailer->setReplacements([
+            'pm_subject' => $params['subject'],
+            'sender' => $users_info['username'],
+            'senderUrl' => $sender_url,
+            'siteUrl' => IA_URL,
+            'siteName' => $this->iaCore->get('site')
+        ]);
+
+        return $iaMailer->send();
+    }
 }

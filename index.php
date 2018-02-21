@@ -249,7 +249,7 @@ if (iaView::REQUEST_HTML == $iaView->getRequestType()) {
         } elseif (iaUsers::getIdentity()->username == $addressee) {
             $iaView->setMessages(iaLanguage::get('tried_to_send_to_yourself'));
         } elseif ($iaDb->exists("`username` = '" . $addressee . "'", null, iaUsers::getTable())) {
-            $member = $iaDb->row("`id`, `fullname`, `username`", "`username` = '$addressee'", iaUsers::getTable());
+            $member = $iaDb->row("`id`, `fullname`, `username`, `email`", "`username` = '$addressee'", iaUsers::getTable());
 
             if ($iaMailbox->isUserIgnored($member['id'], iaUsers::getIdentity()->id)) {
                 $iaView->setMessages(iaLanguage::get('user_blocked_messages'), iaView::ALERT);
@@ -263,6 +263,12 @@ if (iaView::REQUEST_HTML == $iaView->getRequestType()) {
                     'folder_id' => iaMailbox::INBOX,
                     'new' => 1
                 );
+
+                $users_info = [
+                    'username' => iaUsers::getIdentity()->username,
+                    'recipient_email' => $member['email']
+                ];
+
                 $iaMailbox->addMessage($params);
 
                 // Add to Sent folder
@@ -273,6 +279,8 @@ if (iaView::REQUEST_HTML == $iaView->getRequestType()) {
 
                 $url_to_change = "member/{$member['username']}.html";
                 $link = "<a href=\"{$url_to_change}\">{$member['username']}</a>";
+
+                $iaMailbox->sendMail($params, $users_info);
 
                 unset($_GET['action']);
 
