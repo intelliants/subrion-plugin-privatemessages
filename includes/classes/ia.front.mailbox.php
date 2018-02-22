@@ -419,16 +419,17 @@ SQL;
     public function sendMail($params, $users_info)
     {
         $iaMailer = $this->iaCore->factory('mailer');
+        $iaUsers = $this->iaCore->factory('users');
 
         if (!$iaMailer->loadTemplate('pm_notification')) {
             return false;
         }
 
-        $siteName = IA_URL;
-        $sender_url = IA_URL . 'member/' . $users_info['username'] . '.html';
+        $siteName = $this->iaCore->get('site');
+        $sender_url = $iaUsers->getUrl($users_info);
 
-        if (!empty($this->iaCore->get('site'))) {
-            $siteName = $this->iaCore->get('site');
+        if (empty($siteName)) {
+            $siteName = IA_URL;
         }
 
         $iaMailer->addAddress($users_info['recipient_email']);
