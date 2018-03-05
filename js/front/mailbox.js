@@ -1,16 +1,14 @@
 var show_message = false;
 var current_folder = 1;
 
-function discard_reply()
-{
+function discard_reply() {
     document.getElementById('reply_content').style.display = 'none';
     document.getElementById('reply_button').style.display = 'block';
     document.getElementById('edit_subject').style.display = 'none';
     document.getElementById('edit_subject_link').style.display = 'block';
 }
 
-function reply_click()
-{
+function reply_click() {
     document.getElementById('reply_content').style.display = 'block';
     document.getElementById('reply_button').style.display = 'none';
     var m = document.getElementById('reply_message');
@@ -21,8 +19,7 @@ function reply_click()
     document.getElementById('subject').value = document.getElementById('subject_copy').value;
 }
 
-function folder_click(id)
-{
+function folder_click(id) {
     if (show_message && id == current_folder) {
         document.getElementById('message').style.display = 'none';
         document.getElementById('messages').style.display = 'block';
@@ -34,8 +31,7 @@ function folder_click(id)
     }
 }
 
-function select_all()
-{
+function select_all() {
     var f = document.forms['messages_form'];
 
     for (var i = 0; i < f.elements.length; i++) {
@@ -46,8 +42,7 @@ function select_all()
     }
 }
 
-function checkAll(elForm, check)
-{
+function checkAll(elForm, check) {
     var alreadyChecked = false;
     for (i = 0; i < elForm.elements.length; i++) {
         if ((alreadyChecked == false) && ('checkbox' == elForm.elements[i].type)) {
@@ -57,8 +52,7 @@ function checkAll(elForm, check)
     }
 }
 
-function select_none()
-{
+function select_none() {
     var f = document.forms['messages_form'];
 
     for (var i = 0; i < f.elements.length; i++) {
@@ -69,8 +63,7 @@ function select_none()
     }
 }
 
-function select_read()
-{
+function select_read() {
     var f = document.forms['messages_form'];
 
     for (var i = 0; i < f.elements.length; i++) {
@@ -81,8 +74,7 @@ function select_read()
     }
 }
 
-function select_unread()
-{
+function select_unread() {
     var f = document.forms['messages_form'];
 
     for (var i = 0; i < f.elements.length; i++) {
@@ -93,8 +85,7 @@ function select_unread()
     }
 }
 
-function mark_change(ctrl)
-{
+function mark_change(ctrl) {
     switch (ctrl.value) {
         case 'mark_as_read':
             mark_as_read(ctrl);
@@ -105,8 +96,7 @@ function mark_change(ctrl)
     }
 }
 
-function mark_as_read(ctrl)
-{
+function mark_as_read(ctrl) {
     var f = document.forms['messages_form'];
     var cnt = getNumSelected(f);
 
@@ -120,8 +110,7 @@ function mark_as_read(ctrl)
     }
 }
 
-function mark_as_unread(ctrl)
-{
+function mark_as_unread(ctrl) {
     var f = document.forms['messages_form'];
     var cnt = getNumSelected(f);
 
@@ -135,8 +124,7 @@ function mark_as_unread(ctrl)
     }
 }
 
-function move_to_change(ctrl)
-{
+function move_to_change(ctrl) {
     var v = parseInt(ctrl.value);
     if (v > 0) {
         move_to(v, ctrl);
@@ -148,8 +136,7 @@ function move_to_change(ctrl)
     }
 }
 
-function move_to(folder_id, ctrl)
-{
+function move_to(folder_id, ctrl) {
     var f = document.forms['messages_form'];
     var cnt = getNumSelected(f);
 
@@ -164,8 +151,7 @@ function move_to(folder_id, ctrl)
     }
 }
 
-function move_to_new(ctrl)
-{
+function move_to_new(ctrl) {
     var f = document.forms['messages_form'];
     var num = getNumSelected(f);
 
@@ -186,8 +172,7 @@ function move_to_new(ctrl)
     }
 }
 
-function delete_messages()
-{
+function delete_messages() {
     var cnt = 0;
     var f = document.forms['messages_form'];
 
@@ -208,8 +193,7 @@ function delete_messages()
     }
 }
 
-function delete_messages_forever()
-{
+function delete_messages_forever() {
     var cnt = 0;
     var f = document.forms['messages_form'];
 
@@ -229,8 +213,8 @@ function delete_messages_forever()
         document.getElementById('move_to').options[0].selected = true;
     }
 }
-function setCursorPosition(oInput, oStart, oEnd)
-{
+
+function setCursorPosition(oInput, oStart, oEnd) {
     oInput.focus();
     if (oInput.setSelectionRange) {
         oInput.setSelectionRange(oStart, oEnd);
@@ -246,8 +230,7 @@ function setCursorPosition(oInput, oStart, oEnd)
     }
 }
 
-function getNumSelected(aForm)
-{
+function getNumSelected(aForm) {
     var cnt = 0;
     for (var i = 0; i < aForm.elements.length; i++) {
         el = aForm.elements[i];
@@ -258,8 +241,7 @@ function getNumSelected(aForm)
     return cnt;
 }
 
-function editSubjectClick()
-{
+function editSubjectClick() {
     document.getElementById('edit_subject_link').style.display = 'none';
     document.getElementById('edit_subject').style.display = 'block';
     var input = document.getElementById('subject');
@@ -267,13 +249,11 @@ function editSubjectClick()
     setCursorPosition(input, 0, input.value.length);
 }
 
-function mkdir()
-{
+function mkdir() {
     var name = $('#js-folder-name').val();
 
     if (null != name && name.length > 0) {
-        $.get('profile/messages/read.json', {action: 'mkdir', name: name}, function (data)
-        {
+        $.get('profile/messages/read.json', {action: 'mkdir', name: name}, function (data) {
             if ('boolean' == typeof data.error && !data.error) {
                 // add new folder to list
                 var folder = '\
@@ -284,7 +264,7 @@ function mkdir()
 <td class="text-right">\
 <span class="folder-actions">\
 <button class="btn btn-xs btn-info" onclick="rename_folder(\'' + data.folder + '\', \'' + name + '\'); return false;">' + _f(
-                        'rename') + '</button> \
+                    'rename') + '</button> \
 <button class="btn btn-xs btn-danger" onclick="rmdir(\'' + data.folder + '\', \'0\'); return false;">' + _f('delete') + '</button>\
 </span>\
                     </td>\
@@ -302,14 +282,12 @@ function mkdir()
     }
 }
 
-function rename_folder(id, old_name)
-{
+function rename_folder(id, old_name) {
     var new_name = prompt(_t('folder_new_name'), old_name);
 
     if (null != new_name && new_name.length > 0) {
         $.get(intelli.config.url + "profile/messages/read.json", {action: "rename", folder_id: id, name: new_name},
-            function (data)
-            {
+            function (data) {
                 if ('boolean' == typeof data.error && !data.error) {
                     $("tr#folder_" + id + " a").text(new_name);
 
@@ -319,8 +297,7 @@ function rename_folder(id, old_name)
     }
 }
 
-function rmdir(id, num)
-{
+function rmdir(id, num) {
     var msg = '';
 
     if (num > 0) {
@@ -330,8 +307,7 @@ function rmdir(id, num)
     msg += ' ' + _f('want_del_folder');
 
     if (confirm(msg)) {
-        $.get('profile/messages/read.json', {action: 'rmdir', folder_id: id}, function (data)
-        {
+        $.get('profile/messages/read.json', {action: 'rmdir', folder_id: id}, function (data) {
             $('tr#folder_' + id).remove();
 
             if ('boolean' == typeof data.error && !data.error) {
@@ -341,31 +317,53 @@ function rmdir(id, num)
     }
 }
 
-$(function ()
-{
+
+var members = '';
+var pm_id = $('#pm-id');
+$(function () {
     if ($('#to').length) {
-        $('#to').typeahead(
-            {
-                source: function (query, process)
-                {
-                    return $.ajax(
-                        {
-                            url: intelli.config.url + 'profile/messages.json',
-                            type: 'get',
-                            dataType: 'json',
-                            data: {q: query},
-                            success: function (response)
-                            {
-                                $('.typeahead.dropdown-menu').css({'opacity':'1', 'visibility':'visible'});
-                                return process(response);
-                            }
+        $('#to').typeahead({
+            source: function (query, process) {
+                return $.ajax({
+                    url: intelli.config.clear_url + 'profile/messages.json',
+                    type: 'get',
+                    dataType: 'json',
+                    data: {q: query},
+                    success: function (response) {
+                        members = response;
+                        $('.typeahead.dropdown-menu').css({'opacity': '1', 'visibility': 'visible'});
+
+                        var results = $.map(members, function (member) {
+                            return member.id + "";
                         });
-                }
-            });
+
+                        return process(results);
+                    }
+                });
+            },
+
+            matcher: function (item) {
+                return true;
+            },
+
+            highlighter: function (id) {
+                var member = $.grep(members, function (e) {
+                    return e.id == id;
+                });
+                return member[0].name;
+            },
+
+            updater: function (id) {
+                var member = $.grep(members, function (e) {
+                    return e.id == id;
+                });
+                pm_id.val(member[0].id);
+                return member[0].name;
+            }
+        });
     }
 
-    $('.btn-remove-ignore').click(function (e)
-    {
+    $('.btn-remove-ignore').click(function (e) {
         if (!window.confirm(intelli.lang.you_sure_want_to_exclude_from_ignore)) {
             e.preventDefault();
         }

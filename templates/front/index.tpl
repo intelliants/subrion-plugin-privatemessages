@@ -24,6 +24,7 @@
                             <label for="to" class="control-label col-md-3">{lang key='to'}:</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" autocomplete="off" name="username" id="to" size="20" value="{$recip.username}" placeholder="{lang key='username'}">
+                                <input type="hidden" name="pmid" id="pm-id">
                             </div>
                         </div>
 

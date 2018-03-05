@@ -26,6 +26,7 @@
 
 $iaMailbox = $iaCore->factoryModule('mailbox', IA_CURRENT_MODULE);
 $iaUtil = $iaCore->factory(iaCore::CORE, 'util');
+$iaUsers = $iaCore->factory('users');
 
 if (iaView::REQUEST_JSON == $iaView->getRequestType()) {
     $output = array('error' => true, 'message' => iaLanguage::get('invalid_parameters'));
@@ -90,7 +91,12 @@ if (iaView::REQUEST_JSON == $iaView->getRequestType()) {
                 ));
 
                 unset($output);
-                $output = $iaDb->onefield('username', $stmt, 0, 20, iaUsers::getTable());
+                $data = $iaDb->all(['id', 'fullname', 'username'], $stmt, 0, 20, iaUsers::getTable());
+
+                foreach ($data as $key => $value) {
+                    $output[$key]['id'] = $value['id'];
+                    $output[$key]['name'] = "{$value['fullname']} ({$value['username']})";
+                }
             }
     }
 
@@ -242,7 +248,8 @@ if (iaView::REQUEST_HTML == $iaView->getRequestType()) {
     }
 
     if (isset($_POST['send'])) {
-        $addressee = iaSanitize::sql($_POST['username']);
+        $user = $iaUsers->getById($_POST['pmid']);
+        $addressee = $user['username'];
 
         if (empty($addressee)) {
             $iaView->setMessages(iaLanguage::get('addressee_is_not_specified'));
