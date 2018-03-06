@@ -4,9 +4,9 @@
     <summary>This plugin adds private messaging functionality to your website.</summary>
     <author>Intelliants LLC</author>
     <contributor>Intelliants LLC</contributor>
-    <version>4.1.1</version>
-    <date>2018-02-08</date>
-    <compatibility>4.1</compatibility>
+    <version>4.2.0</version>
+    <date>2018-03-06</date>
+    <compatibility>4.2</compatibility>
 
     <permissions>
         <object id="account_messages" action="send" access="0">Send Message</object>

@@ -83,7 +83,7 @@
                                             <textarea id="reply_message_copy" cols="15" rows="5">{$pm_message.body}</textarea>
                                         </div>
                                         <div style="margin-top:15px">
-                                            <input type="hidden" name="username" value="{$pm_message.from_username}">
+                                            <input type="hidden" name="pmid" value="{$pm_message.from_member_id}">
                                             <input type="submit" name="send" value="{lang key='send'}" class="btn btn-primary" id="reply">
                                             <input type="button" value="{lang key='cancel'}" class="btn btn-danger" onclick="discard_reply(); return true;">
                                         </div>
