@@ -93,7 +93,7 @@
                         </div>
                     {/if}
                 {else}
-                    {include 'extra:privatemessages/messages'}
+                    {include 'module:privatemessages/messages.tpl'}
                 {/if}
             </div>
         </div>
